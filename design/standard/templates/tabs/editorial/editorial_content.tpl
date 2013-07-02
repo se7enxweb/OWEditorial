@@ -17,7 +17,7 @@
 										<input type="hidden" name="ObjectID" value="{$node.object.id}" />
 										<input type="hidden" name="RedirectRelativeURI" value="{$node.url_alias}" />
 										<input type="hidden" name="SelectedStateIDList[]" value="{$state.id}" />
-										<input type="submit" value="{'Set state'|i18n( 'extension/oweditorial' )}" name="AssignButton" {if $state.id|eq($group.current.id)}class="button-disabled" disabled="disabled"{else}class="button"{/if} />
+										<input type="submit" value="{'Set state'|i18n( 'oweditorial' )}" name="AssignButton" {if $state.id|eq($group.current.id)}class="button-disabled" disabled="disabled"{else}class="button"{/if} />
 								</form>
 								{$state.current_translation.name}
 							</li>
