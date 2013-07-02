@@ -1,0 +1,6 @@
+ul.editorial_states li form {
+	display: inline-block;
+}
+ul.editorial_states li.current {
+	font-weight: bold;
+}
