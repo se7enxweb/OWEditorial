@@ -3,5 +3,16 @@
 <TS>
     <context>
         <name>oweditorial</name>
+        <message>
+            <source>OWEditorial</source>
+            <translation>OWEditorial</translation>
+        </message>
+    </context>
+    <context>
+        <name>oweditorial</name>
+        <message>
+            <source>Editorial</source>
+            <translation>Editorial</translation>
+        </message>
     </context>
 </TS>
