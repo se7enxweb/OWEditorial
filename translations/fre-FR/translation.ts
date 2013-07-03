@@ -4,6 +4,16 @@
     <context>
         <name>oweditorial</name>
         <message>
+            <source>OWEditorial</source>
+            <translation>OWEditorial</translation>
+        </message>
+    </context>
+    <context>
+        <name>oweditorial</name>
+        <message>
+            <source>Editorial</source>
+            <translation>Editorial</translation>
+        </message>
 	        <source>Set state</source>
 	        <translation>Passer à l'état</translation>
 	    </message>
