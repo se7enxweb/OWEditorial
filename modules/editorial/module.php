@@ -1,7 +1,8 @@
 <?php
 
-/*
- * Not yet implemented
- */
+$Module = array( 'name' => 'editorial',
+		'variable_params' => true );
+
+$ViewList = array();
 
 ?>

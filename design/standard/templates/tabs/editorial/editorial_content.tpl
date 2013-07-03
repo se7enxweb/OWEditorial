@@ -1,10 +1,7 @@
-{ezcss_require( 'editorial.css' )}
-{def $display_groups = array()}
-	{foreach ezini( 'Workflows', 'Workflows', 'oweditorial.ini' ) as $workflow}
-		{set $display_groups = $display_groups|append( ezini( $workflow, 'StateGroup', 'oweditorial.ini' ) )}
-	{/foreach}
+
+{def $workflows = ezini( 'Workflows', 'Workflows', 'oweditorial.ini' )}
 	{foreach $node.object.allowed_assign_state_list as $group}
-		{if $display_groups|contains($group.group.identifier)}
+		{if $workflows|contains($group.group.identifier)}
 			{if $group.current.identifier|ne('none')}
 				{def $group_identifier = $group.group.identifier
 					 $group_name = $group.group.current_translation.name|wash}
@@ -21,7 +18,27 @@
 											<input type="hidden" name="SelectedStateIDList[]" value="{$state.id}" />
 											<input type="submit" value="{'Set state'|i18n( 'oweditorial' )}" name="AssignButton" {if $state.id|eq($group.current.id)}class="button-disabled" disabled="disabled"{else}class="button"{/if} />
 										</form>
+										
 										{$state.current_translation.name}
+										
+										{if $state.id|eq($group.current.id)}
+											{if ezini_hasvariable($group_identifier, $state.identifier, 'oweditorial.ini')}
+						
+												{foreach ezini($group_identifier, $state.identifier, 'oweditorial.ini') as $to => $action}
+													{def $state_to = fetch('editorial' , 'object_state', hash( 'group_identifier' , $group.group.identifier,
+							                                                                				'state_identifier' , $to))}
+							                            {if $node.object.allowed_assign_state_id_list|contains($state_to.id)}
+								                        	<form class="next-actions" name="statesform" method="post" action={'state/assign'|ezurl}>
+																<input type="hidden" name="ObjectID" value="{$node.object.id}" />
+																<input type="hidden" name="RedirectRelativeURI" value="{$node.url_alias}" />
+																<input type="hidden" name="SelectedStateIDList[]" value="{$state_to.id}" />
+																<input type="submit" value="{$action|wash|i18n( 'oweditorial' )}" name="AssignButton" class="defaultbutton" />
+															</form>
+														{/if}
+							                        {undef $state}
+												{/foreach}
+											{/if}
+										{/if}
 									</li>
 								{/if}
 							{/foreach}
@@ -33,4 +50,4 @@
 			{/if}
 		{/if}
 	{/foreach}
-{undef $display_groups}
+{undef $workflows}

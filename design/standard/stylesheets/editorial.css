@@ -1,6 +1,25 @@
+ul.editorial_states li {
+	list-style: none;
+}
+
 ul.editorial_states li form {
 	display: inline-block;
 }
+
 ul.editorial_states li.current {
 	font-weight: bold;
+}
+
+ul.editorial_states li form.next-actions {
+	display: inline;
+	padding-left: 10px;
+}
+
+ul.editorial_states li form.next-actions .defaultbutton {
+	font-weight: normal;
+}
+h1 .next-actions {
+	display: inline; 
+	padding-left: 10px; 
+	font-size: 0.7em;
 }

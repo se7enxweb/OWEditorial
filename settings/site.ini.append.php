@@ -3,4 +3,6 @@
 [RegionalSettings]
 TranslationExtensions[]=oweditorial
 
+[TemplateSettings]
+ExtensionAutoloadPath[]=oweditorial
 */ ?>
