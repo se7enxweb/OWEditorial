@@ -3,5 +3,9 @@
 [EventSettings]
 ExtensionDirectories[]=oweditorial
 AvailableEventTypes[]=event_oweditorialinit
+AvailableEventTypes[]=event_oweditorialnotification
+
+[OperationSettings]
+AvailableOperationList[]=content_updateobjectstate
 
 */ ?>
