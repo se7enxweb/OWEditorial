@@ -18,9 +18,9 @@
                                 <th><div class="yui-dt-liner">{'Last Modification'|i18n( 'oweditorial/module' )}</div></th>
                                 <th><div class="yui-dt-liner">{'Editorial actions'|i18n( 'oweditorial/module' )}</div></th>
                             </tr></thead>
-                            <tbody>
-                                {foreach $state.content_list as $content_node} 
-                                    <tr>
+                            <tbody class="yui-dt-data">
+                                {foreach $state.content_list as $idex => $content_node sequence array( 'yui-dt-even', 'yui-dt-odd' ) as $style} 
+                                    <tr class="{if $index|eq(0)}yui-dt-first{/if} {$style}">
                                         <td>
                                             <a class="defaultbutton" href={$content_node.url_alias|ezurl()}>{'View'|i18n( 'oweditorial/module' )}</a>
                                             <a class="button" href={concat('content/edit/',$content_node.contentobject_id)|ezurl()}>{'Edit'|i18n( 'oweditorial/module' )}</a>
