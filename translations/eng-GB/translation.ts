@@ -65,5 +65,13 @@
             <source>Filter by workflow and state</source>
             <translation>Filter by workflow and state</translation>
         </message>
+        <message>
+            <source>Filter by name</source>
+            <translation>Filtrer by name</translation>
+        </message>
+        <message>
+            <source>Filter by author</source>
+            <translation>Filtrer by author</translation>
+        </message>
     </context>
 </TS>

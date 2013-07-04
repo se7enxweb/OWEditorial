@@ -65,5 +65,13 @@
             <source>Filter by workflow and state</source>
             <translation type="unfinished">Filter by workflow and state</translation>
         </message>
+        <message>
+            <source>Filter by name</source>
+            <translation type="unfinished">Filtrer by name</translation>
+        </message>
+        <message>
+            <source>Filter by author</source>
+            <translation type="unfinished">Filtrer by author</translation>
+        </message>
     </context>
 </TS>
