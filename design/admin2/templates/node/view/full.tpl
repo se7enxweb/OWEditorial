@@ -39,7 +39,7 @@
 		{foreach $node.object.allowed_assign_state_list as $group}
 			{if $workflows|contains($group.group.identifier)}
 				{if $group.current.identifier|ne('none')}
-					
+					<span class="current_state">[{$group.current.current_translation.name|wash}]</span>
 					{if ezini_hasvariable($group.group.identifier, $group.current.identifier, 'oweditorial.ini')}
 					
 						{foreach ezini($group.group.identifier, $group.current.identifier, 'oweditorial.ini') as $to => $action}

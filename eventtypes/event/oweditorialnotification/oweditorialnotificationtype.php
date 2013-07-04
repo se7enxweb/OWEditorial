@@ -15,9 +15,6 @@ class oweditorialnotificationType extends eZWorkflowEventType {
     	$parameters = $process->attribute( 'parameter_list' );
     	$content_object = eZContentObject::fetch( $parameters['object_id'] );
     	$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
-    	$owEditorialNotification->send( );
-    	exit;
-		$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
         return $owEditorialNotification->send( ) ? eZWorkflowType::STATUS_ACCEPTED : eZWorkflowType::STATUS_REJECTED;
     }
 

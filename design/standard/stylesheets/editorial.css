@@ -20,6 +20,10 @@ ul.editorial_states li form.next-actions .defaultbutton {
 }
 h1 .next-actions {
 	display: inline; 
-	padding-left: 10px; 
+	padding: 0 5px; 
 	font-size: 0.7em;
+}
+h1 .current_state {
+	font-style: italic;
+	color: #888;
 }
