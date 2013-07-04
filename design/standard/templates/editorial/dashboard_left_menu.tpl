@@ -14,4 +14,14 @@
 		    </ul>
 		{/foreach}
 	</div>
+	<div class="float-break"></div>
+	<div class="box-header"><div class="box-ml">
+    <h4>{'Filter by name'|i18n( 'oweditorial/module' )}</h4>
+    </div></div>
+    <input type="text" id="name-search" /></label></p>
+    <div class="float-break"></div>
+    <div class="box-header"><div class="box-ml">
+    <h4>{'Filter by author'|i18n( 'oweditorial/module' )}</h4>
+    </div></div>
+    <input type="text" id="author-search" /></label></p>
 </div>
