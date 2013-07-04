@@ -14,8 +14,9 @@
             <source>Editorial</source>
             <translation>Editorial</translation>
         </message>
-	        <source>Set state</source>
-	        <translation>Passer à l'état</translation>
-	    </message>
+        <message>
+            <source>Set state</source>
+            <translation>Passer à l'état</translation>
+        </message>
     </context>
 </TS>

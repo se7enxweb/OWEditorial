@@ -14,6 +14,7 @@
             <source>Editorial</source>
             <translation type="unfinished">Editorial</translation>
         </message>
+        <message>
             <source>Set state</source>
             <translation type="unfinished">Set state</translation>
         </message>
