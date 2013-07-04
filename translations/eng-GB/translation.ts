@@ -19,4 +19,47 @@
             <translation>Set state</translation>
         </message>
     </context>
+    <context>
+        <name>oweditorial/module</name>
+        <message>
+            <source>Editorial</source>
+            <translation>Editorial</translation>
+        </message>
+        <message>
+            <source>Dashboard</source>
+            <translation>Dashboard</translation>
+        </message>
+        <message>
+            <source>Editorial dashboard</source>
+            <translation>Editorial dashboard</translation>
+        </message>
+        <message>
+            <source>Content actions</source>
+            <translation>Content actions</translation>
+        </message>
+        <message>
+            <source>Name</source>
+            <translation>Name</translation>
+        </message>
+        <message>
+            <source>Author</source>
+            <translation>Author</translation>
+        </message>
+        <message>
+            <source>Last Modification</source>
+            <translation>Last Modification</translation>
+        </message>
+        <message>
+            <source>Editorial actions</source>
+            <translation>Editorial actions</translation>
+        </message>
+        <message>
+            <source>View</source>
+            <translation>View</translation>
+        </message>
+        <message>
+            <source>Edit</source>
+            <translation>Edit</translation>
+        </message>
+    </context>
 </TS>
