@@ -29,16 +29,12 @@ class oweditorialinitType extends eZWorkflowEventType {
         }
         $workflowNameList = $ini->variable( "Workflows", "Workflows" );
         foreach( $workflowNameList as $workflowName ) {
-            if( !$ini->hasVariable( $workflowName, "StateGroup" ) || $ini->variable( $workflowName, "StateGroup" ) == '' ) {
-                eZDebug::writeError( "[$workflowName]StateGroup not set in oweditorial.ini" );
-                continue;
-            }
             if( !$ini->hasVariable( $workflowName, "FirstState" ) || $ini->variable( $workflowName, "FirstState" ) == '' ) {
                 eZDebug::writeError( "[$workflowName]FirstState not set in oweditorial.ini" );
                 continue;
             }
-            $stateGroupIdentifier = $ini->variable( $workflowName, "StateGroup" );
-            $stateGroup = eZContentObjectStateGroup::fetchByIdentifier( $stateGroupIdentifier );
+
+            $stateGroup = eZContentObjectStateGroup::fetchByIdentifier( $workflowName );
             if( !$stateGroup instanceof eZContentObjectStateGroup ) {
                 eZDebug::writeError( "Object state group $stateGroup not found" );
                 continue;
