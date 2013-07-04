@@ -61,5 +61,9 @@
             <source>Edit</source>
             <translation type="unfinished">Edit</translation>
         </message>
+        <message>
+            <source>Filter by workflow and state</source>
+            <translation type="unfinished">Filter by workflow and state</translation>
+        </message>
     </context>
 </TS>

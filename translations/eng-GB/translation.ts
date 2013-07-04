@@ -61,5 +61,9 @@
             <source>Edit</source>
             <translation>Edit</translation>
         </message>
+        <message>
+            <source>Filter by workflow and state</source>
+            <translation>Filter by workflow and state</translation>
+        </message>
     </context>
 </TS>

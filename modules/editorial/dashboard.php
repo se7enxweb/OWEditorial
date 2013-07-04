@@ -72,6 +72,7 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
 
     $Result = array( );
     $Result['content'] = $tpl->fetch( 'design:editorial/dashboard.tpl' );
+    $Result['left_menu'] = 'design:editorial/dashboard_left_menu.tpl';
     $Result['path'] = array(
         array(
             'url' => 'editorial/dashboard',

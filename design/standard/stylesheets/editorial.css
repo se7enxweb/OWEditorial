@@ -65,3 +65,22 @@ h1 .current_state {
 .editorial-dashboard-page td {
     padding: 6px;
 }
+
+.editorial-dashboard-page-filter ul {
+    list-style-type: none;
+}
+.editorial-dashboard-page-filter li {
+    border-radius: 3px;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    padding: 0 0.5em;
+    margin: 4px 0;
+    color: #0B4E7A;
+}
+.editorial-dashboard-page-filter .enabled {
+}
+
+.editorial-dashboard-page-filter .disabled {
+    font-style: italic;
+    background-color: #F3F3F3;
+}
