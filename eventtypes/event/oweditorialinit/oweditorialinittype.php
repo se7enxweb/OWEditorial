@@ -5,7 +5,7 @@ class oweditorialinitType extends eZWorkflowEventType {
     const WORKFLOW_TYPE_STRING = 'oweditorialinit';
 
     function __construct( ) {
-        $this->eZWorkflowEventType( oweditorialinitType::WORKFLOW_TYPE_STRING, ezpI18n::tr( 'oweditorial/event', "Editorial" ) );
+        $this->eZWorkflowEventType( oweditorialinitType::WORKFLOW_TYPE_STRING, ezpI18n::tr( 'oweditorial/event', "Editorial init" ) );
         $this->setTriggerTypes( array( 'content' => array( 'publish' => array( 'before' ) ) ) );
     }
 
