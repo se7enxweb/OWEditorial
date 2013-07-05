@@ -24,17 +24,19 @@ class owEditorialNotification {
     }
 	
     
-    static public function createCollaborationMessage( $object_id, $version_id, $message, $user_id, $created, $modified, $message_type='object_comment', $additional_message='' ) {
+    static public function createCollaborationMessage( $object_id, $version_id, $message, $user_id, $created, $modified, $additional_message='', $message_type='objectstate_update' ) {
     	 
     	$comment = new eZCollaborationSimpleMessage(
-    			array( 'message_type' => $message_type,
+    			array(
 		    			'data_int1'    => $object_id,
 		    			'data_int2'    => $version_id,
-		    			'data_text1'   => $additional_message,
-		    			'data_text2'   => $message,
+		    			'data_text1'   => $message,
+		    			'data_text2'   => $additional_message,
 		    			'creator_id'   => $user_id,
 		    			'created'      => $created,
-		    			'modified'     => $modified )
+		    			'modified'     => $modified,
+    			 		'message_type' => $message_type,
+    			)
     	);
     	return $comment->store();
     }

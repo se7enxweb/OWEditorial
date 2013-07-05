@@ -31,6 +31,10 @@
             <source>Version</source>
             <translation>Version</translation>
         </message>
+        <message>
+            <source>Object's history is empty.</source>
+            <translation>Il n'y a aucun historique pour l'instant.</translation>
+        </message>
     </context>
     <context>
         <name>oweditorial/module</name>

@@ -70,7 +70,9 @@ table.message_list tr td.version {
 table.message_list tr td.date {
 	max-width: 125px;
 }
-
+table.message_list tr.type_objectstate_update td.action:before {
+	content: "»";
+}
 .editorial-dashboard-page h2, .editorial-dashboard-page h3 {
     color: #094564;
 }

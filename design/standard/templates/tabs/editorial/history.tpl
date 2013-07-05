@@ -16,7 +16,7 @@
 							<a href="{$aut.main_node.url_alias|ezurl(no)}">{$aut.name|wash()}</a>
 						</td>
 						<td class="action">
-							{$message.data_text2|wash()}
+							{$message.data_text1|wash()}
 						</td>
 						<td class="date">
 							{$message.created|l10n( 'shortdatetime' )}
@@ -28,6 +28,8 @@
 				
 				{/foreach}
 			</table>
+		{else}
+			<p>{"Object's history is empty."|i18n('oweditorial')}
 		{/if}
 	{undef $message_list}
 </div>

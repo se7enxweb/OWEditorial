@@ -16,23 +16,33 @@ class oweditorialnotificationType extends eZWorkflowEventType {
     	$content_object = eZContentObject::fetch( $parameters['object_id'] );
     	
   		// Create collaboration message (history)
-    	$user = eZUser::currentUser();
-    	$time = time();
-    	foreach ($parameters['state_id_list'] as $state_id) {
-    		$state = eZContentObjectState::fetchById($state_id);
-    		owEditorialNotification::createCollaborationMessage( 
-    				$parameters['object_id'], 
-    				$content_object->CurrentVersion, 
-    				'=> '.$state->currentTranslation()->Name, 
-    				$user->attribute( 'contentobject_id' ), 
-    				$time, 
-    				$time
-    		);
+    	$oweditorial_ini = eZIni::instance('oweditorial.ini');
+    	if ($oweditorial_ini->hasVariable('Workflows', 'Workflows')) {
+    		$workflows = $oweditorial_ini->variable('Workflows', 'Workflows');
+	    	$user = eZUser::currentUser();
+	    	$time = time();
+	    	foreach ($parameters['state_id_list'] as $state_id) {
+	    		$state = eZContentObjectState::fetchById($state_id);
+	    		$group_identifier = $state->group()->Identifier;
+	    		if ( in_array($group_identifier , $workflows) ) {
+		    		owEditorialNotification::createCollaborationMessage( 
+		    				$parameters['object_id'], 
+		    				$content_object->CurrentVersion, 
+		    				$state->currentTranslation()->Name, 
+		    				$user->attribute( 'contentobject_id' ), 
+		    				$time, 
+		    				$time,
+		    				$group_identifier,
+		    				'objectstate_update'
+		    		);
+	    		}
+	    	}
     	}
     	
     	// Send mail notifications
-    	$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
-        return $owEditorialNotification->send( ) ? eZWorkflowType::STATUS_ACCEPTED : eZWorkflowType::STATUS_REJECTED;
+    	/*$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
+        return $owEditorialNotification->send( ) ? eZWorkflowType::STATUS_ACCEPTED : eZWorkflowType::STATUS_REJECTED;*/
+    	return eZWorkflowType::STATUS_ACCEPTED;
     }
 
 }
