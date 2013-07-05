@@ -1,4 +1,3 @@
-
 {def $workflows = ezini( 'Workflows', 'Workflows', 'oweditorial.ini' )}
 	{foreach $node.object.allowed_assign_state_list as $group}
 		{if $workflows|contains($group.group.identifier)}

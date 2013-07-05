@@ -15,6 +15,22 @@
             <source>Set state</source>
             <translation>Passer à l'état</translation>
         </message>
+        <message>
+            <source>Author</source>
+            <translation>Auteur</translation>
+        </message>
+        <message>
+            <source>Action</source>
+            <translation>Action</translation>
+        </message>
+        <message>
+            <source>Date</source>
+            <translation>Date</translation>
+        </message>
+        <message>
+            <source>Version</source>
+            <translation>Version</translation>
+        </message>
     </context>
     <context>
         <name>oweditorial/module</name>
