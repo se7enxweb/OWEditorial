@@ -7,9 +7,6 @@
             <source>OWEditorial</source>
             <translation type="unfinished">OWEditorial</translation>
         </message>
-    </context>
-    <context>
-        <name>oweditorial</name>
         <message>
             <source>Editorial</source>
             <translation type="unfinished">Editorial</translation>
