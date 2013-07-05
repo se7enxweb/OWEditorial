@@ -12,11 +12,11 @@
                     <div class="yui-dt">
                         <table>
                             <thead><tr>
-                                <th><div class="yui-dt-liner">{'Content actions'|i18n( 'oweditorial/module' )}</div></th>
-                                <th><div class="yui-dt-liner">{'Name'|i18n( 'oweditorial/module' )}</div></th>
-                                <th><div class="yui-dt-liner">{'Author'|i18n( 'oweditorial/module' )}</div></th>
-                                <th><div class="yui-dt-liner">{'Last Modification'|i18n( 'oweditorial/module' )}</div></th>
-                                <th><div class="yui-dt-liner">{'Editorial actions'|i18n( 'oweditorial/module' )}</div></th>
+                                <th><div class="yui-dt-liner content_actions_head">{'Content actions'|i18n( 'oweditorial/module' )}</div></th>
+                                <th><div class="yui-dt-liner name_head">{'Name'|i18n( 'oweditorial/module' )}</div></th>
+                                <th><div class="yui-dt-liner owner_head">{'Author'|i18n( 'oweditorial/module' )}</div></th>
+                                <th><div class="yui-dt-liner modified_head">{'Last Modification'|i18n( 'oweditorial/module' )}</div></th>
+                                <th><div class="yui-dt-liner editorial_actions_head">{'Editorial actions'|i18n( 'oweditorial/module' )}</div></th>
                             </tr></thead>
                             <tbody class="yui-dt-data">
                                 {foreach $state.content_list as $idex => $content_node sequence array( 'yui-dt-even', 'yui-dt-odd' ) as $style} 

@@ -66,21 +66,44 @@ h1 .current_state {
     padding: 6px;
 }
 
+.editorial-dashboard-page .content_actions_col {
+    width: 120px;
+}
+.editorial-dashboard-page .content_actions_head, .editorial-dashboard-page .content_actions_col {
+    text-align: center;
+}
+.editorial-dashboard-page .owner_col {
+    width: 200px;
+}
+.editorial-dashboard-page .modified_col {
+    width: 200px;
+}
+.editorial-dashboard-page .modified_head, .editorial-dashboard-page .modified_col {
+    text-align: center;
+}
+.editorial-dashboard-page .editorial_actions_col {
+    width: 200px;
+}
+.editorial-dashboard-page .editorial_actions_head, .editorial-dashboard-page .editorial_actions_col {
+    text-align: center;
+}
 .editorial-dashboard-page-filter ul {
     list-style-type: none;
 }
 .editorial-dashboard-page-filter li {
     border-radius: 3px;
     background-clip: padding-box;
-    border: 1px solid #999;
     padding: 0 0.5em;
+    padding-left: 20px;
     margin: 4px 0;
     color: #0B4E7A;
+    cursor: pointer;
 }
 .editorial-dashboard-page-filter .enabled {
+    background: url('../images/checkbox_checked.png') no-repeat;
 }
 
 .editorial-dashboard-page-filter .disabled {
     font-style: italic;
-    background-color: #F3F3F3;
+    background: url('../images/checkbox.png') no-repeat;
 }
