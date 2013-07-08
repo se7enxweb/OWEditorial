@@ -27,7 +27,7 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
                 $ignoreState = $INI->hasVariable( 'dashboard_' . $workflow, 'IgnoreState' ) ? $INI->variable( 'dashboard_' . $workflow, 'IgnoreState' ) : array( );
                 foreach( $stateList as $state ) {
                     if( !in_array( $state->attribute( 'identifier' ), $ignoreState ) ) {
-                        $contentList = eZFunctionHandler::execute( 'content', 'tree', array(
+                        $fetchParams = array(
                             'parent_node_id' => 1,
                             'attribute_filter' => array( array(
                                     'state',
@@ -35,8 +35,18 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
                                     $state->attribute( 'id' )
                                 ) ),
                             'sort_by' => array( 'modified' => FALSE )
-                        ) );
-                        if( !empty( $contentList ) ) {
+                        );
+                        $contentListCount = eZFunctionHandler::execute( 'content', 'tree_count', $fetchParams );
+                        $contentList = array( );
+                        if( $contentListCount > 0 ) {
+                            $contentList = eZFunctionHandler::execute( 'content', 'tree', $fetchParams );
+                            foreach( $contentList as $index => $content ) {
+                                if( !$content->attribute( 'can_edit' ) ) {
+                                    unset( $contentList[$index] );
+                                }
+                            }
+                        }
+                        if( isset( $contentList ) && !empty( $contentList ) ) {
                             $nextStateList = array( );
                             if( $INI->hasVariable( $stateGroup->attribute( 'identifier' ), $state->attribute( 'identifier' ) ) ) {
                                 $ININextStateArray = $INI->variable( $stateGroup->attribute( 'identifier' ), $state->attribute( 'identifier' ) );
