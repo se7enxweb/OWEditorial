@@ -4,7 +4,7 @@
 	</div></div>
     <div class="editorial-dashboard-page-filter">
 		{foreach $workflow_state_list as $workflow}
-		    <ul class="menu-block">
+		    <ul>
 			    <li rel="workflow_{$workflow.identifier}" class="workflow enabled">{$workflow.name}</li>
 			    <ul>
 			    {foreach $workflow.states as $state}
@@ -24,4 +24,8 @@
     <h4>{'Filter by author'|i18n( 'oweditorial/module' )}</h4>
     </div></div>
     <input type="text" id="author-search" /></label></p>
+</div>
+{* This is the border placed to the left for draging width, js will handle disabling the one above and enabling this *}
+<div id="widthcontrol-handler" class="hide">
+<div class="widthcontrol-grippy"></div>
 </div>

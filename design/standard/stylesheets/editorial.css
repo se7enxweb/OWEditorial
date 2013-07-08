@@ -102,6 +102,9 @@ table.message_list tr.type_objectstate_update td.action:before {
 .editorial-dashboard-page .editorial_actions_head, .editorial-dashboard-page .editorial_actions_col {
     text-align: center;
 }
+#leftmenu-design ul:first-child {
+    margin-left: 0;
+}
 .editorial-dashboard-page-filter ul {
     list-style-type: none;
 }
