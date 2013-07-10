@@ -10,9 +10,9 @@ class owEditorialNotification {
 	const HTML_CONTENT_TYPE = 'text/html';
 	const TEXT_CONTENT_TYPE = 'text/plain';
 	
-	public function __construct( $object_id, $state_id_list )
+	public function __construct( $object_id, $state_id_list=array() )
     {
-	    if ( $object_id && $state_id_list ) {
+	    if ( $object_id ) {
 	        $this->site_ini = eZIni::instance('site.ini');
 	        $this->oweditorial_ini = eZIni::instance('oweditorial.ini');
 	        $this->object = eZContentObject::fetch( $object_id );
@@ -179,7 +179,7 @@ class owEditorialNotification {
 	}
 	
     /**
-     * Returns an array containing all receivers for a content object attribute (ezstring or ezobjectrelationlist of users)
+     * Returns an array containing all receivers for a content object attribute containing users (ezstring, ezobjectrelationlist or owenhancedobjectrelationlist)
      *
      * @return array
      */
@@ -190,7 +190,7 @@ class owEditorialNotification {
         	$receiverAttribute = $dataMap[$receiverAttributeIdentifier];
         	if ( $receiverAttribute instanceof eZContentObjectAttribute ) {
         		// Supports User Object relation list
-        		if ( $receiverAttribute->DataTypeString == 'ezobjectrelationlist' ) {
+        		if ( $receiverAttribute->DataTypeString == 'ezobjectrelationlist' || $attribute->DataTypeString == 'owenhancedobjectrelationlist' ) {
         			$relationListContent = $receiverAttribute->content();
         			$relationList = $relationListContent['relation_list'];
         			foreach($relationList as $relation) {
@@ -292,7 +292,7 @@ class owEditorialNotification {
      * @param eZContentObject $user
      * @return string
      */
-    protected function emailFromUser($user) {
+    static public function emailFromUser($user) {
     	if ($user instanceof eZContentObject) {
 	    	$user_data_map = $user->dataMap();
 	    	foreach($user_data_map as $user_attribute) {
