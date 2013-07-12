@@ -40,8 +40,9 @@ class oweditorialnotificationType extends eZWorkflowEventType {
     	}
     	
     	// Send mail notifications
-    	/*$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
-        return $owEditorialNotification->send( ) ? eZWorkflowType::STATUS_ACCEPTED : eZWorkflowType::STATUS_REJECTED;*/
+    	$owEditorialNotification = new owEditorialNotification( $parameters['object_id'], $parameters['state_id_list'] );
+    	$owEditorialNotification->send( );
+        //return $owEditorialNotification->send( ) ? eZWorkflowType::STATUS_ACCEPTED : eZWorkflowType::STATUS_REJECTED;
     	return eZWorkflowType::STATUS_ACCEPTED;
     }
 

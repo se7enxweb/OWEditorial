@@ -49,39 +49,79 @@ class owEditorialNotification {
 	public function send ( )
     {
 		$return = true;
-        $content_type = $this->getEmailContentType();
+        $default_content_type = $this->getEmailContentType();
 		$sender = $this->getEmailSender();
-		
+
 		foreach ($this->state_id_list as $state_id) {
-			$state = eZContentObjectState::fetchById($state_id);
-	        $receivers = $this->getReceivers($state->Identifier);
-	        
-	        $subject = $this->getEmailSubject( $state->Identifier );
-	        $body = $this->getEmailBody( $subject, $this->object, $content_type, $state );
-			
-	        foreach ( $receivers as $mailAddress ) {
-
-        		if ( $mailAddress ) {
-
-			        $mail = new eZMail();
-			        $mail->setContentType( $content_type );
-			        $mail->setReceiver( $mailAddress );
-			        $mail->setSender( $sender );
-			        $mail->setSubject( $subject );
-			        $mail->setBody( $body );
+			$state = eZContentObjectState::fetchById( $state_id );
+			$notifications = $this->getNotifications( $state->Identifier );
+			if (count($notifications)) {
+				
+				foreach( $notifications as $notification ) {
+					
+			        $receivers = $this->getReceivers( $notification );
 			        
-			        $result = eZMailTransport::send( $mail );
-			        $return = ($return && $result);
-			        if ( !$result ) {
-			        	$this->error( 'Error when sending notification at address :' . $mailAddress );
+			        $tpl = eZTemplate::factory();
+			        $tpl->setVariable( 'subject', $subject );
+			        $tpl->setVariable( 'content_object', $this->object );
+			        $tpl->setVariable( 'hostname', eZSys::hostname() );
+			        $tpl->setVariable( 'state', $state );
+			        
+			        $body = $tpl->fetch( 'design:' . $notification['template'] );
+					
+			        if ( $tpl->hasVariable( 'subject' ) ) {
+			        	$subject = $tpl->variable( 'subject' );
+			        } else {
+			        	$subject = 'No subject';
 			        }
-        		}
-
-	    	}
+			        
+			        if ( $tpl->hasVariable( 'content_type' ) ) {
+			        	$content_type = $tpl->variable( 'content_type' );
+			        } else {
+			        	$content_type = $default_content_type;
+			        }
+			        
+			        foreach ( $receivers as $mailAddress ) {
+		
+		        		if ( $mailAddress ) {
+		
+					        $mail = new eZMail();
+					        $mail->setContentType( $content_type );
+					        $mail->setReceiver( $mailAddress );
+					        $mail->setSender( $sender );
+					        $mail->setSubject( $subject );
+					        $mail->setBody( $body );
+					        
+					        $result = eZMailTransport::send( $mail );
+					        $return = ($return && $result);
+					        if ( !$result ) {
+					        	$this->error( 'Error when sending notification at address :' . $mailAddress );
+					        }
+		        		}
+		
+			    	}
+				}
+			}
 		}
 		return $return;
     }
     
+    protected function getNotifications( $state_identifier ) {
+    	$notifications = array();
+    	if ( $this->oweditorial_ini->hasVariable('notifications_'.$state_identifier, 'Notifications') ) {
+    		foreach( $this->oweditorial_ini->variable('notifications_'.$state_identifier, 'Notifications') as $notif_settings) {
+    			$notif_array = explode(';', $notif_settings);
+    			if ( count($notif_array) == 3 ) {
+    				$notifications[] = array(
+    						'type' => $notif_array[0],
+    						'value' => $notif_array[1],
+    						'template' => $notif_array[2]
+    				);
+    			}
+    		}
+    	}
+    	return $notifications;
+    }
     /**
      * Get email sender
      *
@@ -128,51 +168,32 @@ class owEditorialNotification {
     /**
      * Get receivers for a state identifier
      *
-     * @param string $state_identifier
+     * @param array $notification
      * @return string
      */
-	protected function getReceivers( $state_identifier ) {
+	protected function getReceivers( $notification ) {
 		$receivers = array();
-		if ( $this->oweditorial_ini->hasVariable('notifications_'.$state_identifier, 'Receivers') ) {
-			$receivers_settings = array();
-			foreach ( $this->oweditorial_ini->variable('notifications_'.$state_identifier, 'Receivers') as $notif_settings) {
-				
-				$notif_array = explode(';', $notif_settings);
-				if (count($notif_array) > 1) {
-					$receivers_settings[$notif_array[0]] = $notif_array[1];
-				} else {
-					$receivers_settings['others'] = $notif_array[0];
+			
+		switch ($notification['type']) {
+			case 'attribute':
+				$receivers = array_merge( $receivers, $this->getReceiversByAttribute( (array)$notification['value'] ) );
+				break;
+			case 'group':
+				$receivers = array_merge( $receivers, $this->getReceiversByUserGroupID( $notification['value'] ) );
+				break;
+			case 'user':
+				$mail = $this->getReceiverByUserID( $notification['value'] );
+				if($mail) {
+					$receivers = array_merge( $receivers, (array)$mail );
 				}
-			}
-			if (isset($receivers_settings['attribute'])) {
-				$receivers = array_merge( $receivers, $this->getReceiversByAttribute( (array)$receivers_settings['attribute'] ) );
-			}
-			if (isset($receivers_settings['group'])) {
-				foreach ((array)$receivers_settings['group'] as $group_id) {
-					$receivers = array_merge( $receivers, $this->getReceiversByUserGroupID( $group_id ) );
+				break;
+			case 'owner':
+				$owner = $this->object->attribute( 'owner');
+				$owner_email = $this->emailFromUser($owner);
+				if($owner_email) {
+					$receivers = array_merge( $receivers, (array)$owner_email);
 				}
-			}
-			if (isset($receivers_settings['user'])) {
-				foreach ((array)$receivers_settings['user'] as $user_id) {
-					$mail = $this->getReceiverByUserID( $user_id );
-					if($mail) {
-						$receivers = array_merge( $receivers, (array)$mail );
-					}
-				}
-			}
-			if (isset($receivers_settings['others'])) {
-				foreach ((array)$receivers_settings['others'] as $setting ) {
-					switch($setting) {
-						case 'owner':
-							$owner = $this->object->attribute( 'owner');
-							$owner_email = $this->emailFromUser($owner);
-							if($owner_email) {
-								$receivers = array_merge( $receivers, (array)$owner_email);
-							}
-						break;
-					}
-				}
-			}
+				break;
 		}
 		
 		return $receivers;
@@ -190,7 +211,7 @@ class owEditorialNotification {
         	$receiverAttribute = $dataMap[$receiverAttributeIdentifier];
         	if ( $receiverAttribute instanceof eZContentObjectAttribute ) {
         		// Supports User Object relation list
-        		if ( $receiverAttribute->DataTypeString == 'ezobjectrelationlist' || $attribute->DataTypeString == 'owenhancedobjectrelationlist' ) {
+        		if ( $receiverAttribute->DataTypeString == 'ezobjectrelationlist' || $receiverAttribute->DataTypeString == 'owenhancedobjectrelationlist' ) {
         			$relationListContent = $receiverAttribute->content();
         			$relationList = $relationListContent['relation_list'];
         			foreach($relationList as $relation) {
@@ -252,39 +273,6 @@ class owEditorialNotification {
     	}
     	return $receivers;
     }
-    
-    /**
-     * Get content of template, based on state identifier
-     *
-     * @param string $subject
-     * @param eZContentObject $content_object
-     * @param string $content_type
-     * @param string $state_identifier
-     * @return string
-     */
-    protected function getEmailBody( $subject, $content_object, $content_type=self::HTML_CONTENT_TYPE, $state )
-    {
-
-        if ( $content_type == self::HTML_CONTENT_TYPE ) {
-        	$template_type = 'Html';
-        } else {
-        	$template_type = 'Text';
-        }
-        if( $this->oweditorial_ini->hasVariable('notifications_'.$state->Identifier, $template_type.'Template') ) {
-        	$template = $this->oweditorial_ini->variable('notifications_'.$state->Identifier, $template_type.'Template');
-        } else {
-        	$template = 'editorial/mail/'.strtolower($template_type).'.tpl';
-        }
-        
-        $tpl = eZTemplate::factory();
-        $tpl->setVariable( 'subject', $subject );
-        $tpl->setVariable( 'content_object', $content_object );
-        $tpl->setVariable( 'hostname', eZSys::hostname() );
-        $tpl->setVariable( 'state', $state );
-        
-        return $tpl->fetch( 'design:' . $template );
-    }
-    
     
     /**
      * Get email address from an eZContentObject user
