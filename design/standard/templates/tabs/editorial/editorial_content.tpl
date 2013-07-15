@@ -32,8 +32,8 @@
 							                                                                				'state_identifier' , $to))}
 							                            {if $node.object.allowed_assign_state_id_list|contains($state_to.id)}
 								                        	<form class="next-actions" name="statesform" method="post" action={'state/assign'|ezurl}{*
-									                        	*}{if ezini_hasvariable(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')}{*
-																	*}onsubmit="return confirm('{ezini(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')|explode("'")|implode("\\'")}');"{*
+									                        	*}{if ezini_hasvariable(concat('notifications_', $state_to.identifier), 'Alert', 'oweditorial.ini')}{*
+																	*}onsubmit="return confirm('{ezini(concat('notifications_', $state_to.identifier), 'Alert', 'oweditorial.ini')|explode("'")|implode("\\'")}');"{*
 																*}{/if}{*
 															*}>
 																<input type="hidden" name="ObjectID" value="{$node.object.id}" />

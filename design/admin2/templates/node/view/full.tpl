@@ -46,7 +46,11 @@
 							{def $state = fetch('editorial' , 'object_state', hash( 'group_identifier' , $group.group.identifier,
 	                                                                				'state_identifier' , $to))}
 	                            {if $node.object.allowed_assign_state_id_list|contains($state.id)}
-		                        	<form name="statesform" method="post" action={'state/assign'|ezurl} class="next-actions">
+		                        	<form name="statesform" method="post" action={'state/assign'|ezurl} class="next-actions"{*
+			                        	*}{if ezini_hasvariable(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')}{*
+											*}onsubmit="return confirm('{ezini(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')|explode("'")|implode("\\'")}');"{*
+										*}{/if}{*
+									*}>
 										<input type="hidden" name="ObjectID" value="{$node.object.id}" />
 										<input type="hidden" name="RedirectRelativeURI" value="{$node.url_alias}" />
 										<input type="hidden" name="SelectedStateIDList[]" value="{$state.id}" />
