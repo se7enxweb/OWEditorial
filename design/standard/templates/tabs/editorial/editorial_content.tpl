@@ -11,7 +11,11 @@
 							{foreach $group.states as $state}
 								{if $state.identifier|ne('none')}
 									<li{if $state.id|eq($group.current.id)} class="current"{/if}>
-										<form name="statesform" method="post" action={'state/assign'|ezurl} class="button-left">
+										<form name="statesform" method="post" action={'state/assign'|ezurl} class="button-left"{*
+				                        	*}{if ezini_hasvariable(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')}{*
+												*}onsubmit="return confirm('{ezini(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')|explode("'")|implode("\\'")}');"{*
+											*}{/if}{*
+										*}>
 											<input type="hidden" name="ObjectID" value="{$node.object.id}" />
 											<input type="hidden" name="RedirectRelativeURI" value="{$node.url_alias}" />
 											<input type="hidden" name="SelectedStateIDList[]" value="{$state.id}" />
@@ -27,7 +31,11 @@
 													{def $state_to = fetch('editorial' , 'object_state', hash( 'group_identifier' , $group.group.identifier,
 							                                                                				'state_identifier' , $to))}
 							                            {if $node.object.allowed_assign_state_id_list|contains($state_to.id)}
-								                        	<form class="next-actions" name="statesform" method="post" action={'state/assign'|ezurl}>
+								                        	<form class="next-actions" name="statesform" method="post" action={'state/assign'|ezurl}{*
+									                        	*}{if ezini_hasvariable(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')}{*
+																	*}onsubmit="return confirm('{ezini(concat('notifications_', $state.identifier), 'Alert', 'oweditorial.ini')|explode("'")|implode("\\'")}');"{*
+																*}{/if}{*
+															*}>
 																<input type="hidden" name="ObjectID" value="{$node.object.id}" />
 																<input type="hidden" name="RedirectRelativeURI" value="{$node.url_alias}" />
 																<input type="hidden" name="SelectedStateIDList[]" value="{$state_to.id}" />
