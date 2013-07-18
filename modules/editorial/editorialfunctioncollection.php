@@ -48,7 +48,7 @@ class editorialFunctionCollection
     				null,
     				array( "data_int1" => $object_id ),
     				array( 'created' => $sort_order ),
-    				$asObject );
+    				true );
     	return array('result' => $message_list);
     }
 
