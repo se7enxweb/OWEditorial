@@ -38,7 +38,9 @@ class owEditorialNotification {
     			 		'message_type' => $message_type,
     			)
     	);
-    	return $comment->store();
+    	$return = $comment->store();
+    	eZContentCacheManager::clearObjectViewCache( $object_id );
+    	return $return;
     }
     
     /**
