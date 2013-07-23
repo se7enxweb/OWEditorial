@@ -25,7 +25,7 @@
                                             <a class="defaultbutton" href={$content_node.url_alias|ezurl()}>{'View'|i18n( 'oweditorial/module' )}</a>
                                             <a class="button" href={concat('content/edit/',$content_node.contentobject_id)|ezurl()}>{'Edit'|i18n( 'oweditorial/module' )}</a>
                                         </td>
-                                        <td class="name_col"><a href={$content_node.url_alias|ezurl()}>{$content_node.name|wash()}</td>
+                                        <td class="name_col"><a href={$content_node.url_alias|ezurl()}>{$content_node.name|wash()}</a></td>
                                         <td class="owner_col">{$content_node.object.owner.name|wash()}</td>
                                         <td class="modified_col">{$content_node.object.modified|l10n( 'shortdatetime' )}</td>
                                         <td class="editorial_actions_col">

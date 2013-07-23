@@ -1,31 +1,28 @@
-a.button {
+a.button, a.defaultbutton {
     color: #FFF;
+	border: 1px solid #CFD1D3;
+    border-radius: 3px;
+    background-clip: padding-box;
+    padding: 0.26em 0.7em;
+    text-decoration: none;
+    vertical-align: middle;
+}
+a.button {
     background: #516E9E;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5D7DB1), to(#445C89));
     background-image: -moz-linear-gradient(top, #5D7DB1, #445C89);
     background-image: -ms-linear-gradient(top, #5D7DB1, #445C89);
     background-image: -o-linear-gradient(top, #5D7DB1, #445C89);
     background-image: linear-gradient(top, #5D7DB1, #445C89);
-    border: 1px solid #CFD1D3;
-    border-radius: 3px;
-    background-clip: padding-box;
-    padding: 0.26em 0.7em;
-    text-decoration: none;
 }
 
 a.defaultbutton {
-    color: #FFF;
     background: #D68916;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E99A21), to(#C97D10));
     background-image: -moz-linear-gradient(top, #E99A21, #C97D10);
     background-image: -ms-linear-gradient(top, #E99A21, #C97D10);
     background-image: -o-linear-gradient(top, #E99A21, #C97D10);
     background-image: linear-gradient(top, #E99A21, #C97D10);
-    border: 1px solid #CFD1D3;
-    border-radius: 3px;
-    background-clip: padding-box;
-    padding: 0.26em 0.7em;
-    text-decoration: none;
 }
 
 ul.editorial_states li {
