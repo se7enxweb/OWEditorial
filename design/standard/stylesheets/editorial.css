@@ -6,6 +6,7 @@ a.button, a.defaultbutton {
     padding: 0.26em 0.7em;
     text-decoration: none;
     vertical-align: middle;
+    display: inline-block;
 }
 a.button {
     background: #516E9E;
