@@ -17,6 +17,16 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
                 eZDebug::writeError( "State group $workflow not found", "editorial/dashboard module" );
                 continue;
             }
+            $classesFilter = array();
+            if( $INI->hasVariable( 'dashboard_' . $workflow, 'Classes' ) && 
+                is_array( $dashboardClasses = $INI->variable( 'dashboard_' . $workflow, 'Classes' ) ) &&
+                count( $dashboardClasses ) ) {
+
+                $classesFilter = array(
+                    'class_filter_type' => 'include',
+                    'class_filter_array' => $dashboardClasses
+                );
+            }
             $stateList = $stateGroup->states( );
             if( !empty( $stateList ) ) {
                 $workflowArray = array(
@@ -36,6 +46,7 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
                                 ) ),
                             'sort_by' => array( 'modified' => FALSE )
                         );
+                        $fetchParams = array_merge( $fetchParams, $classesFilter );
                         $contentListCount = eZFunctionHandler::execute( 'content', 'tree_count', $fetchParams );
                         $contentList = array( );
                         if( $contentListCount > 0 ) {
