@@ -124,3 +124,10 @@ table.message_list tr.type_objectstate_update td.action:before {
     background: url('../images/checkbox.png') no-repeat;
 }
 
+div.pagenavigator {
+    text-align: center;
+    margin: 10px;
+}
+div.pagenavigator p {
+    display: inline-block;
+}

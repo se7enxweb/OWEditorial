@@ -5,10 +5,10 @@
     <div class="editorial-dashboard-page-filter">
 		{foreach $workflow_state_list as $workflow}
 		    <ul>
-			    <li rel="workflow_{$workflow.identifier}" class="workflow enabled">{$workflow.name}</li>
+			    <li rel="workflow_{$workflow.group.identifier}" class="workflow enabled">{$workflow.group.current_translation.name}</li>
 			    <ul>
 			    {foreach $workflow.states as $state}
-			        <li rel="state_{$workflow.identifier}_{$state.identifier}" class="workflow_state enabled">{$state.name}</li>
+			        <li rel="state_{$workflow.group.identifier}_{$state.identifier}" class="workflow_state enabled">{$state.current_translation.name}</li>
 			    {/foreach}
 			    </ul>
 		    </ul>

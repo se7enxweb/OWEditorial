@@ -61,3 +61,30 @@ $(document).ready(function() {
     }
 
 });
+function getDashboardItems( args ) {
+    
+    var container = args.container;
+    
+    $(args['container'] + ' .yui-dt').css('opacity','0.5');
+    
+    $.ez('ezJsOwEditorial::getDashboardItems', args, function(data) {
+        if ( data.content!="false" )
+        {
+            $(container)[0].outerHTML = data.content;
+            ajax_pagination( args['container'], args['state_identifier'], args['group_identifier'] );
+        }
+    });
+    
+    return false;
+}
+function ajax_pagination( container, state_identifier, group_identifier) {
+    $(container + ' a.ajax-pagination').click(function(e){
+        e.preventDefault();
+        getDashboardItems( {
+            'container': container,
+            'state_identifier': state_identifier,
+            'group_identifier': group_identifier,
+            'offset': $(this).attr('data-offset')
+        } );
+    });
+}

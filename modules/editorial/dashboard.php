@@ -4,94 +4,17 @@ $Module = $Params['Module'];
 $currentUser = eZUser::currentUser( );
 
 if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
+
+    $workflowStateList = eZFunctionHandler::execute( 'editorial', 'enabled_object_states', array());
+
     $tpl = eZTemplate::factory( );
-
-    $INI = eZINI::instance( 'oweditorial.ini' );
-    $workflowStateList = array( );
-
-    if( $INI->hasVariable( 'Workflows', 'Workflows' ) && is_array( $INI->variable( 'Workflows', 'Workflows' ) ) ) {
-        $workflowList = $INI->variable( 'Workflows', 'Workflows' );
-        foreach( $workflowList as $workflow ) {
-            $stateGroup = eZContentObjectStateGroup::fetchByIdentifier( $workflow );
-            if( !$stateGroup instanceof eZContentObjectStateGroup ) {
-                eZDebug::writeError( "State group $workflow not found", "editorial/dashboard module" );
-                continue;
-            }
-            $classesFilter = array();
-            if( $INI->hasVariable( 'dashboard_' . $workflow, 'Classes' ) && 
-                is_array( $dashboardClasses = $INI->variable( 'dashboard_' . $workflow, 'Classes' ) ) &&
-                count( $dashboardClasses ) ) {
-
-                $classesFilter = array(
-                    'class_filter_type' => 'include',
-                    'class_filter_array' => $dashboardClasses
-                );
-            }
-            $stateList = $stateGroup->states( );
-            if( !empty( $stateList ) ) {
-                $workflowArray = array(
-                    'name' => $stateGroup->attribute( 'current_translation' )->attribute( 'name' ),
-                    'identifier' => $stateGroup->attribute( 'identifier' ),
-                    'states' => array( )
-                );
-                $ignoreState = $INI->hasVariable( 'dashboard_' . $workflow, 'IgnoreState' ) ? $INI->variable( 'dashboard_' . $workflow, 'IgnoreState' ) : array( );
-                foreach( $stateList as $state ) {
-                    if( !in_array( $state->attribute( 'identifier' ), $ignoreState ) ) {
-                        $fetchParams = array(
-                            'parent_node_id' => 1,
-                            'attribute_filter' => array( array(
-                                    'state',
-                                    '=',
-                                    $state->attribute( 'id' )
-                                ) ),
-                            'sort_by' => array( 'modified' => FALSE )
-                        );
-                        $fetchParams = array_merge( $fetchParams, $classesFilter );
-                        $contentListCount = eZFunctionHandler::execute( 'content', 'tree_count', $fetchParams );
-                        $contentList = array( );
-                        if( $contentListCount > 0 ) {
-                            $contentList = eZFunctionHandler::execute( 'content', 'tree', $fetchParams );
-                            foreach( $contentList as $index => $content ) {
-                                if( !$content->attribute( 'can_edit' ) ) {
-                                    unset( $contentList[$index] );
-                                }
-                            }
-                        }
-                        if( isset( $contentList ) && !empty( $contentList ) ) {
-                            $nextStateList = array( );
-                            if( $INI->hasVariable( $stateGroup->attribute( 'identifier' ), $state->attribute( 'identifier' ) ) ) {
-                                $ININextStateArray = $INI->variable( $stateGroup->attribute( 'identifier' ), $state->attribute( 'identifier' ) );
-                                foreach( $ININextStateArray as $nextStateIdentifier => $actionName ) {
-                                    $nextState = $stateGroup->stateByIdentifier( $nextStateIdentifier );
-                                    if( !$nextState instanceof eZContentObjectState ) {
-                                        eZDebug::writeError( "State $nextStateIdentifier not found in group $workflow", "editorial/dashboard module" );
-                                        continue;
-                                    }
-                                    $nextStateList[] = array(
-                                        'id' => $nextState->attribute( 'id' ),
-                                        'action' => $actionName
-                                    );
-                                }
-                            }
-                            $workflowArray['states'][] = array(
-                                'name' => $state->attribute( 'current_translation' )->attribute( 'name' ),
-                                'identifier' => $state->attribute( 'identifier' ),
-                                'content_list' => $contentList,
-                                'next_states' => $nextStateList
-                            );
-                        }
-                    }
-                }
-                $workflowStateList[] = $workflowArray;
-            } else {
-                eZDebug::writeWarning( "State group $workflow is empty", "editorial/dashboard module" );
-            }
-        }
-    }
+    $Result = array( );
+    $uri = eZURI::instance( eZSys::requestURI() );
+ 
+    $viewParameters = $uri->UserParameters();
+    $tpl->setVariable( 'view_parameters', $viewParameters );
 
     $tpl->setVariable( 'workflow_state_list', $workflowStateList );
-
-    $Result = array( );
     $Result['content'] = $tpl->fetch( 'design:editorial/dashboard.tpl' );
     $Result['left_menu'] = 'design:editorial/dashboard_left_menu.tpl';
     $Result['path'] = array(
@@ -104,7 +27,9 @@ if( $currentUser->hasAccessTo( 'content', 'edit' ) ) {
             'text' => ezpI18n::tr( 'oweditorial/module', 'Dashboard' )
         )
     );
+
 } else {
     return $Module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
 }
+
 ?>
