@@ -223,7 +223,7 @@ class owEditorialNotification {
         					$receivers[] = $email;
         				}
         			}
-        		} elseif ( $receiverAttribute->DataTypeString == 'ezstring' ) {
+        		} elseif ( $receiverAttribute->DataTypeString == 'ezstring'  || $receiverAttribute->DataTypeString== 'ezemail'  ) {
 		        	if ( $receiverAttribute->value() ) {
 		        		$receivers[] = $receiverAttribute->value();
 		        	}
