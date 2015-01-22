@@ -4,7 +4,7 @@ OWEditorial
 **oweditorial** provides an editorial workflow for eZPublish, based on object states.
 
 #Install
-1. Put content on extension in `extension/oweditorial` folder :
+1) Put content on extension in `extension/oweditorial` folder :
 ```
 git clone https://github.com/Open-Wide/OWEditorial.git ./oweditorial
 ```
@@ -13,45 +13,45 @@ or
 git submodule add https://github.com/Open-Wide/OWEditorial.git extension/oweditorial
 ```
 
-2. Activate extension :
+2) Activate extension :
 Add the following to your settings/override/site.ini.append.php file:
 ```
 [ExtensionSettings]
 ActiveExtensions[]=oweditorial
 ```
 
-3. Regenerate autoloads
+3) Regenerate autoloads
 
-4. Clear cache
+4) Clear cache
 
 #Setup
 
 ##Set object states
-1. Create an object state group via "Setup > States > Create new"
+1) Create an object state group via "Setup > States > Create new"
 *example : `myworkflow`*
 
-2. Add a state named `none` in this group.
+2) Add a state named `none` in this group.
 
-3. Add your custom states in this group.
+3) Add your custom states in this group.
 *example : `pending`, `validated`, `refused`, `published`, `archived`*
 
 ##Set actions
-1. Create a file `settings/override/oweditorial.ini.append.php` to add your own settings.
+1) Create a file `settings/override/oweditorial.ini.append.php` to add your own settings.
 
-2. You must enable your workflow in this file :
+2) You must enable your workflow in this file :
 ```
 [Workflows]
 Workflows[]
 Workflows[]=myworkflow
 ```
 
-3. Set a default state for the new objects (in this example, the state "pending" will be setted on each new published object) :
+3) Set a default state for the new objects (in this example, the state "pending" will be setted on each new published object) :
 ```
 [myworkflow]
 FirstState=pending
 ```
 
-4. To define which action is required to set a new state, set your actions like this :
+4) To define which action is required to set a new state, set your actions like this :
 ```
 [myworkflow]
 FirstState=pending
