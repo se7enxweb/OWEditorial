@@ -91,4 +91,15 @@
             <translation>Filtrer par auteur</translation>
         </message>
     </context>
+    <context>
+        <name>oweditorial/event</name>
+        <message>
+            <source>Editorial init</source>
+            <translation>Initialisation du worklow éditorial</translation>
+        </message>
+        <message>
+            <source>Editorial notifications</source>
+            <translation>Notification éditoriale</translation>
+        </message>
+    </context>
 </TS>
