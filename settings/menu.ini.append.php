@@ -22,6 +22,5 @@ Shown[edit]=true
 Shown[navigation]=true
 Shown[browse]=true
 PolicyList[]=content/edit
-
-*/ ?>
+PolicyList[]=editorial/view
 

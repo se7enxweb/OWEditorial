@@ -8,7 +8,9 @@ $Module = array(
 $ViewList = array();
 
 $ViewList['dashboard'] = array(
+    'functions' => array( 'view' ),
     'script' => 'dashboard.php',
-    "default_navigation_part" => 'oweditorialnavigationpart',
+    'default_navigation_part' => 'oweditorialnavigationpart',
 );
-?>
+
+$FunctionList['view'] = array();
