@@ -4,7 +4,7 @@
 			{def $aut = false()}
 			<table class="list message_list" cellspacing="0">
 				<tr>
-				    <th>{'Auteur'|i18n('oweditorial')}</th>
+				    <th>{'Author'|i18n('oweditorial')}</th>
 				    <th>{'Action'|i18n('oweditorial')}</th>
 				    <th>{'Date'|i18n('oweditorial')}</th>
 				    <th>{'Version'|i18n('oweditorial')}</th>
