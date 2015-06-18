@@ -45,7 +45,7 @@ class oweditorialinitType extends eZWorkflowEventType {
                 eZDebug::writeError( "Object state $firstStateIdentifier not find in group $stateGroup" );
                 continue;
             }
-            $object->assignState( $firstState );
+            updateState($objectID, $firstState);
         }
         return eZWorkflowType::STATUS_ACCEPTED;
     }
@@ -53,4 +53,14 @@ class oweditorialinitType extends eZWorkflowEventType {
 }
 
 eZWorkflowEventType::registerEventType( oweditorialinitType::WORKFLOW_TYPE_STRING, "oweditorialinitType" );
+
+function updateState($objectID, $newState) {
+    if (eZOperationHandler:: operationIsAvailable('content_updateobjectstate')) {
+        eZOperationHandler::execute('content', 'updateobjectstate', array('object_id' => $objectID, 'state_id_list' => array($newState->attribute('id'))));
+    } else {
+        eZContentOperationCollection::updateObjectState($objectID, array($newState->attribute('id')));
+    }
+    eZContentCacheManager::clearContentCacheIfNeeded($object->ContentObjectID);
+}
+
 ?>
