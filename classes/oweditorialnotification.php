@@ -69,6 +69,12 @@ class owEditorialNotification {
 			        $tpl->setVariable( 'hostname', eZSys::hostname() );
 			        $tpl->setVariable( 'state', $state );
 			        
+                                if(isset($this->object->OwnerID)){
+                                    $ownerID = $this->object->OwnerID;
+                                    $ownerObject = eZContentObject::fetch($ownerID);
+                                    $tpl->setVariable( 'owner_object', $ownerObject );
+                                }
+
 			        $body = $tpl->fetch( 'design:' . $notification['template'] );
 					
 			        if ( $tpl->hasVariable( 'subject' ) ) {
