@@ -104,7 +104,7 @@ Example of configuration for notification
 
 You can distinguish the notifications for each class identifier
 
-If class identifier is empty, notification 
+If class identifier is empty, notification is sent  at all class.
 
 ```
 Notifications[]=<type>;<value>;<classIdentifier>;<template>
