@@ -98,6 +98,44 @@ Classes[]=article
 ```
 This settings will only display articles in editorial dashboard. All objects with "none" state will not be displayed. You can enable all classes with an empty Classes array.
 
+##Active notification
+
+Example of configuration for notification
+
+You can distinguish the notifications for each class identifier
+
+If class identifier is empty, notification 
+
+```
+Notifications[]=<type>;<value>;<classIdentifier>;<template>
+Notifications[]=attribute;<objectattribute_identifier>;<editorial/mail/exemple.tpl>
+Notifications[]=group;<usergroup_objectid>;<editorial/mail/exemple.tpl>
+Notifications[]=user;<user_objectid>;<editorial/mail/exemple.tpl>
+Notifications[]=owner;owner;<editorial/mail/exemple.tpl>
+
+[notifications_published]
+Alert=Your message
+Notifications[]
+Notifications[]=attribute;email;article;notifications/mails/yourtemplate.tpl
+
+[notifications_pending]
+Alert=Your message
+Notifications[]
+Notifications[]=group;12;article;notifications/mails/yourtemplate-article.tpl
+Notifications[]=group;22;actu;notifications/mails/yourtemplate-actu.tpl
+ 
+[notifications_refused]
+Alert=Your message
+Notifications[]
+Notifications[]=user;1000;article;notifications/mails/yourtemplate.tpl
+
+[notifications_validated]
+Alert=Your message
+Notifications[]
+Notifications[]=owner;;article;notifications/mails/yourtemplate.tpl
+```
+
+
 #Usage
 States and actions buttons will be displayed in full view of objects.
 
