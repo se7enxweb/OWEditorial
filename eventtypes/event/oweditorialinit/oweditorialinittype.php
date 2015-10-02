@@ -60,7 +60,7 @@ function updateState($objectID, $newState) {
     } else {
         eZContentOperationCollection::updateObjectState($objectID, array($newState->attribute('id')));
     }
-    eZContentCacheManager::clearContentCacheIfNeeded($object->ContentObjectID);
+    eZContentCacheManager::clearContentCacheIfNeeded($objectID);
 }
 
 ?>
